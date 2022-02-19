@@ -33,11 +33,12 @@ RUN apt-get -y update \
 # install requirements
 COPY setup.py /tmp/dpte/setup.py
 ARG TENSORFLOW_VERSION=2
+ARG PYTHON_VERSION=3.10
 ARG GCC_VERSION=8
 RUN	python --version \
     && apt-get -y update \
     && apt-get -y install curl \
-    && curl -sS https://bootstrap.pypa.io/get-pip.py | python \
+    && curl -sS https://bootstrap.pypa.io/pip/${PYTHON_VERSION}/get-pip.py | python \
 	&& apt-get -y remove curl \
 	&& apt-get -y autoremove \
 	&& rm -rf /var/lib/apt/lists/* \
