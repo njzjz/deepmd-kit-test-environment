@@ -1,0 +1,71 @@
+name: Docker
+
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - master
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - python: 3.6
+            gcc: 4.8
+            tf: 1.8
+          - python: 3.6
+            gcc: 4.8
+            tf: 1.12
+          - python: 3.6
+            gcc: 4.8
+            tf: 1.14
+          - python: 3.6
+            gcc: 5
+            tf: 1.14
+          - python: 3.6
+            gcc: 8
+            tf: 1.14
+          - python: 3.7
+            gcc: 5
+            tf: 1.14
+          - python: 3.7
+            gcc: 6
+            tf: 1.14
+          - python: 3.7
+            gcc: 7
+            tf: 1.14
+          - python: 3.7
+            gcc: 8
+            tf: 1.14
+          - python: 3.7
+            gcc: 5
+            tf:
+          - python: 3.7
+            gcc: 8
+            tf:
+          - python: 3.8
+            gcc: 5
+            tf:
+          - python: 3.8
+            gcc: 8
+            tf:
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run tests
+        run: |
+          docker build --build-arg PYTHON_VERSION=${{ matrix.python }} --build-arg GCC_VERSION=${{ matrix.gcc }} --build-arg TENSORFLOW_VERSION=${{ matrix.tf }} . -t ghcr.io/deepmodeling/deepmd-kit-test-environment:py${PYTHON_VERSION}-gcc${GCC_VERSION}-tf${TENSORFLOW_VERSION}
+      - name: Push image to GitHub Container Registry
+        run: docker push ghcr.io/deepmodeling/deepmd-kit-test-environment:py${PYTHON_VERSION}-gcc${GCC_VERSION}-tf${TENSORFLOW_VERSION}
+        if: github.event_name == 'push'
