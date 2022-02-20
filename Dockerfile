@@ -18,8 +18,8 @@ RUN apt-get -y update \
 
 # install gcc
 ARG GCC_VERSION=8
-env CC gcc-${GCC_VERSION}
-env CXX g++-${GCC_VERSION}
+ENV CC gcc-${GCC_VERSION}
+ENV CXX g++-${GCC_VERSION}
 RUN apt-get -y update \
     && apt-get -y install software-properties-common \
     && add-apt-repository ppa:git-core/ppa \
@@ -51,5 +51,6 @@ RUN	python --version \
     && python -m pip install -e /tmp/dpte \
     && HOROVOD_WITHOUT_GLOO=1 HOROVOD_WITH_TENSORFLOW=1 python -m pip install -e /tmp/dpte[mpi]
 
+ENV PYTHONIOENCODING utf8
 CMD [ "/bin/bash" ]
 
