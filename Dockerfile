@@ -20,14 +20,18 @@ RUN apt-get -y update \
 ARG GCC_VERSION=8
 env CC gcc-${GCC_VERSION}
 env CXX g++-${GCC_VERSION}
-
 RUN apt-get -y update \
+    && apt-get -y install software-properties-common \
+    && add-apt-repository ppa:git-core/ppa \
+    && apt-get -y update \
     && apt-get -y install gcc-${GCC_VERSION} \
 	     g++-${GCC_VERSION} \
 	     libopenmpi-dev \
 	     openmpi-bin \
 		 cmake \
 		 git \
+	&& apt-get -y remove software-properties-common \
+	&& apt-get -y autoremove \
 	&& rm -rf /var/lib/apt/lists/*
 
 # install requirements
