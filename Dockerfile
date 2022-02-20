@@ -51,6 +51,10 @@ RUN	python --version \
     && python -m pip install -e /tmp/dpte \
     && HOROVOD_WITHOUT_GLOO=1 HOROVOD_WITH_TENSORFLOW=1 python -m pip install -e /tmp/dpte[mpi]
 
+RUN locale-gen en_US.UTF-8
 ENV PYTHONIOENCODING utf8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US
+ENV LC_ALL en_US.UTF-8
 CMD [ "/bin/bash" ]
 
