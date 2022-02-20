@@ -33,6 +33,9 @@ RUN apt-get -y update \
 	&& apt-get -y remove software-properties-common \
 	&& apt-get -y autoremove \
 	&& rm -rf /var/lib/apt/lists/*
+# resolves dist issue
+ARG PYTHON_VERSION=3.10
+RUN ln -s /usr/local/lib/python${PYTHON_VERSION}/dist-packages /usr/lib/python${PYTHON_VERSION}/site-packages
 
 # install requirements
 COPY setup.py /tmp/dpte/setup.py
@@ -56,5 +59,6 @@ ENV PYTHONIOENCODING utf8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US
 ENV LC_ALL en_US.UTF-8
+
 CMD [ "/bin/bash" ]
 
