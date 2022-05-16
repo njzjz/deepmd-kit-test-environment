@@ -26,6 +26,7 @@ require = [
     "pytest",
     "pytest-cov",
     "pytest-sugar",
+    "codecov",
 ]
 tf_version = os.environ.get("TENSORFLOW_VERSION", "")
 
