@@ -55,6 +55,9 @@ RUN	python --version \
     && HOROVOD_WITHOUT_GLOO=1 HOROVOD_WITH_TENSORFLOW=1 python -m pip install -e /tmp/dpte[mpi]
 
 RUN apt-get clean && apt-get -y update && apt-get install -y locales && locale-gen en_US.UTF-8
+# add everything to safe.directory
+# see https://github.com/pypa/setuptools_scm/issues/707
+RUN git config --global --add safe.directory '*'
 ENV PYTHONIOENCODING utf8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US
