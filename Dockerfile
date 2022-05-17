@@ -57,7 +57,7 @@ RUN	python --version \
 RUN apt-get clean && apt-get -y update && apt-get install -y locales && locale-gen en_US.UTF-8
 # add everything to safe.directory
 # see https://github.com/pypa/setuptools_scm/issues/707
-RUN git config --global --add safe.directory '*'
+RUN git config --global --add --system safe.directory '*'
 ENV PYTHONIOENCODING utf8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US
