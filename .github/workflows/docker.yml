@@ -63,6 +63,6 @@ jobs:
           image: deepmd-kit-test-environment:py${{ matrix.python }}-gcc${{ matrix.gcc }}-tf${{ matrix.tf }}
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}}
+          password: ${{ secrets.GITHUB_TOKEN }}
           buildArgs: PYTHON_VERSION=${{ matrix.python }}, GCC_VERSION=${{ matrix.gcc }}, TENSORFLOW_VERSION=${{ matrix.tf }}
         if: github.event_name == 'push'
