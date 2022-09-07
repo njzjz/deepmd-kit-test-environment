@@ -57,12 +57,12 @@ jobs:
             tf:
     steps:
       - uses: actions/checkout@v2
-
-      - name: Run tests
-        run: |
-          docker build --build-arg PYTHON_VERSION=${{ matrix.python }} --build-arg GCC_VERSION=${{ matrix.gcc }} --build-arg TENSORFLOW_VERSION=${{ matrix.tf }} . -t ghcr.io/deepmodeling/deepmd-kit-test-environment:py${{ matrix.python }}-gcc${{ matrix.gcc }}-tf${{ matrix.tf }}
-      - name: Login to GitHub Container
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u njzjz --password-stdin
       - name: Push image to GitHub Container Registry
-        run: docker push ghcr.io/deepmodeling/deepmd-kit-test-environment:py${{ matrix.python }}-gcc${{ matrix.gcc }}-tf${{ matrix.tf }}
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: deepmd-kit-test-environment:py${{ matrix.python }}-gcc${{ matrix.gcc }}-tf${{ matrix.tf }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}}
+          buildArgs: PYTHON_VERSION=${{ matrix.python }}, GCC_VERSION=${{ matrix.gcc }}, TENSORFLOW_VERSION=${{ matrix.tf }}
         if: github.event_name == 'push'
