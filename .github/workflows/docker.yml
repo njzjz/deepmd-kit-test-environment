@@ -60,7 +60,8 @@ jobs:
       - name: Push image to GitHub Container Registry
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: deepmd-kit-test-environment:py${{ matrix.python }}-gcc${{ matrix.gcc }}-tf${{ matrix.tf }}
+          image: deepmd-kit-test-environment
+          tags: py${{ matrix.python }}-gcc${{ matrix.gcc }}-tf${{ matrix.tf }}
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
