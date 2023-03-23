@@ -26,7 +26,6 @@ require = [
     "pytest",
     "pytest-cov",
     "pytest-sugar",
-    'protobuf',
 ]
 tf_version = os.environ.get("TENSORFLOW_VERSION", "")
 
@@ -36,6 +35,11 @@ elif tf_version in SpecifierSet("<1.15") or tf_version in SpecifierSet(">=2.0,<2
     require.append(f"tensorflow=={tf_version}.*")
 else:
     require.append(f"tensorflow-cpu=={tf_version}.*")
+
+if tf_version == "" or tf_version in SpecifierSet(">=2.12"):
+    require.append("protobuf")
+else:
+    require.append("protobuf < 3.20")
 
 gcc_version = os.environ.get("GCC_VERSION", "")
 if gcc_version in SpecifierSet(">=4.9") and (tf_version == "" or tf_version in SpecifierSet(">=1.15")):
