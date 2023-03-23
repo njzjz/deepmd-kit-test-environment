@@ -38,7 +38,7 @@ else:
     require.append(f"tensorflow-cpu=={tf_version}.*")
 
 gcc_version = os.environ.get("GCC_VERSION", "")
-if gcc_version in SpecifierSet(">=4.9") and (tf_version in SpecifierSet(">=1.15") or tf_version == ""):
+if gcc_version in SpecifierSet(">=4.9") and (tf_version == "" or tf_version in SpecifierSet(">=1.15")):
     mpi = ["horovod", "mpi4py"]
 else:
     mpi = []
