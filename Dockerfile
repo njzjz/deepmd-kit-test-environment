@@ -1,4 +1,5 @@
-from ubuntu:18.04
+ARG UBUNTU_VERSION=18.04
+FROM ubuntu:${UBUNTU_VERSION}
 
 LABEL maintainer="Jinzhe Zeng <jinzhe.zeng@rutgers.edu>"
 
